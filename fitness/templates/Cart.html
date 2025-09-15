@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+{%load static %}
+<html lang="zxx" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Gutim Template">
+    <meta name="keywords" content="Gutim, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gutim | Template</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'home/css/font-awesome.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'home/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'home/css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'home/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'home/css/style.css' %}" type="text/css">
+</head>
+
+<body class="bg-gray-100 p-6">
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="container">
+            <div class="logo">
+                <a href="./index.html">
+                    <img src="{% static 'home/img/fitfusion logo.png' %}" alt="" height="25px" width="100px">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <nav class="mainmenu mobile-menu mt-4 md-4">
+                    <ul>
+                        <li><a href="{% url 'index_page' %}">Home</a></li>
+                        <li><a href="{% url 'About' %}">About</a></li>
+                        <li><a href="{% url 'Class' %}">Workouts</a></li>
+                        <li><a href="{% url 'diet_page'  %}">Diet</a></li>
+                        <li><a href="{% url 'product' %}">Product</a></li>
+                        <li><a href="{% url 'favorites_view' %}">View Favorites </a></li>
+                        <li><a href="{% url 'contact_page' %}">Contacts</a></li>
+                    </ul>
+                </nav>
+<!--                <a href="#" class="primary-btn signup-btn">Sign Up Today</a>-->
+                {% if request.session.User_name %}
+                <a href="{% url 'user_logout' %}" class="btn btn-danger text-light" >Welcome {{request.session.User_name}} /Logout</a>
+                {% else %}
+                <a href="{% url 'sign_in' %}">Register/Login </a>
+                {% endif %}
+
+
+                <a href="{% url 'cart_page' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" style="margin-left:40px" color="#ed3615" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+                    <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l.5 2H5V5zM6 5v2h2V5zm3 0v2h2V5zm3 0v2h1.36l.5-2zm1.11 3H12v2h.61zM11 8H9v2h2zM8 8H6v2h2zM5 8H3.89l.5 2H5zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
+                </svg> {{x}}
+            </a>
+
+            </div>
+
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="{% static 'home/img/index.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <h2>Blog</h2>
+                        <div class="breadcrumb-option">
+                            <a href="./index.html"><i class="fa fa-home"></i> Home</a>
+                            <span>Blog</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+<section class="container d-flex">
+    <div class="container mt-5 md-5 ml-4 d-flex">
+		<table class="table table-dark table-hover">
+            <thead>
+    <tr>
+      <th scope="col">Product Image</th>
+      <th scope="col">Name</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Total</th>
+
+
+    </tr>
+  </thead>
+            <tbody>
+  {% for i in cart %}
+    <tr>
+      <td><img src="{{i.Product_Image.url}}" width="100px" height="100px"></td>
+	  <td>{{i.UserName}}</td>
+		<td>{{i.Product_Name}}</td>
+         <td>
+            {{ i.Quantity }}
+        </td>
+		<td>{{i.Price}}</td>
+		<td>{{i.TotalPrice}}</td>
+
+		<td>
+			<a href="{% url 'delete_cart' c_id=i.id %}">
+				<button class="btn btn-danger">Delete</button>
+			</a>
+		</td>
+
+    </tr>
+  {% endfor %}
+  </tbody>
+
+        </table>
+    </div>
+    {% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+</section>
+
+
+<div class="container  total-price-container">
+    <table class="table" >
+        <thead class="table-dark">
+            <tr>
+                <th>Total</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="total-data">
+                <td><strong>Subtotal: </strong></td>
+                <td>Rs. {{sub_total}}</td>
+            </tr>
+            <tr class="total-data">
+                <td><strong>Shipping: </strong></td>
+                <td>Rs. {{shipping_amount}}</td>
+            </tr>
+            <tr class="total-data">
+                <td><strong>Total: </strong></td>
+                <td>Rs. {{total_amount}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <a href="{% url 'checkout_cart' %}">
+    <button type="submit" class="primary-btn " style="margin-top:280px;margin-left:-300px">Checkout</button>
+        </a>
+    </div>
+</div>
+
+
+<style>
+    .total-price-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        max-width: 500px; /* Adjust as needed */
+        margin: 20px auto; /* Center it */
+    }
+
+    .total-price-container table {
+        flex: 1;
+        text-align: center;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+    <!-- Footer Section Begin -->
+    <footer class="footer-section footer-banner-item set-bg"   data-setbg="{% static 'home/img/footer-banner/footer.jpg' %}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="contact-option">
+                        <span>Phone</span>
+                        <p style="color:black"><b>9876543205</b></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-option">
+                        <span>Address</span>
+                        <p style="color:black"><b>Kakkanad, Kochi, Kerala.</b></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-option">
+                        <span>Email</span>
+                        <p style="color:black"><b>fitfusion@gmail.com</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="subscribe-option set-bg" data-setbg="">
+                <div class="so-text"  style="margin-left:30px">
+                    <h4 style="color:black">Subscribe To Our Mailing List</h4>
+                    <p style="color:black">Sign up to receive the latest information </p>
+                </div>
+                <form action="#" class="subscribe-form"  style="margin-right:250px">
+                    <input type="text" placeholder="Enter Your Mail">
+                    <button type="submit"><i class="fa fa-send"></i></button>
+                </form>
+            </div>
+            <div class="copyright-text">
+<!--                <ul>-->
+<!--                    <li><a href="#">Term&Use</a></li>-->
+<!--                    <li><a href="#">Privacy Policy</a></li>-->
+<!--                </ul>-->
+                <p><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        <p style="margin-left:30px,color:black">FitFusion  made by <i class="fa fa-heart" aria-hidden="true"></i>  <a href="" target="_blank">Vibisha</a>
+  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+                <div class="footer-social"  style="margin-right:430px">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
+                    <a href="#"><i class="fa fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Js Plugins -->
+    <script src="{% static 'home/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'home/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'home/js/mixitup.min.js' %}"></script>
+    <script src="{% static 'home/js/jquery.slicknav.js' %}"></script>
+    <script src="{% static 'home/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'home/js/main.js' %}"></script>
+</body>
+
+<script>
+    function updateQuantity(itemId, action) {
+        // Get the quantity input element and its current value
+        var quantityElement = document.querySelector(`#quantity-${itemId}`);
+        var currentQuantity = parseInt(quantityElement.textContent);
+
+        if (action === 'increment') {
+            quantityElement.textContent = currentQuantity + 1;
+        } else if (action === 'decrement' && currentQuantity > 1) {
+            quantityElement.textContent = currentQuantity - 1;
+        }
+
+        // Update the total price based on new quantity
+        var price = parseFloat(document.querySelector(`#price-${itemId}`).textContent);
+        var total = price * parseInt(quantityElement.textContent);
+        document.querySelector(`#total-${itemId}`).textContent = "₹ " + total.toFixed(2);
+
+        // Optionally, send an AJAX request to update the backend
+        updateCartItem(itemId, quantityElement.textContent, total);
+    }
+
+    function updateCartItem(itemId, quantity, totalPrice) {
+        // Send the updated data to the server using AJAX
+        fetch(`/update_cart/${itemId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                'quantity': quantity,
+                'totalPrice': totalPrice
+            })
+        }).then(response => response.json()).then(data => {
+            console.log(data);
+        });
+    }
+</script>
+
+
+</html>

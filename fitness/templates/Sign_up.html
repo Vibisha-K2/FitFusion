@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="login-box">
+        <h2>Sign up</h2>
+        <form method="post" action="{% url 'save_signup' %}">
+			{% csrf_token %}
+            <div class="input-box">
+                <input type="text" name="username" required>
+                <label>Username</label>
+            </div>
+            <div class="input-box">
+                <input type="password" name="password" required>
+                <label>Password</label>
+            </div>
+			<div class="input-box">
+                <input type="password" name="confirm" required>
+                <label>Confirm Password</label>
+            </div>
+			<div class="input-box">
+                <input type="email" name="email" required>
+                <label>Email</label>
+            </div>
+
+            <button type="submit">Sign Up</button>
+			<div class="links">
+<!--                <a href="#">Forgot Password?</a>-->
+                <a href="{%url 'sign_in' %}">Login</a>
+            </div>
+        </form>
+    </div>
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #121212;
+}
+
+.login-box {
+    width: 320px;
+    padding: 40px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.7);
+}
+
+h2 {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+}
+
+.input-box label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
+    top: -10px;
+    left: 0;
+    color: white;
+    font-size: 12px;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin-left:85px;
+    text-align:center;
+    margin-top:20px;
+}
+
+.links a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(90deg, #8e44ad, #6a0dad);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background: 0 0 15px rgba(138, 43, 226, 0.7);
+}
+
+</style>
+</body>
+</html>

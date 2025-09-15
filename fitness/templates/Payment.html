@@ -1,0 +1,173 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <title>Proceed To Payment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'pay/css/style.css' %}">
+
+    <style>
+      body.img {
+        background-size: cover;
+        background-position: center center;
+        min-height: 100vh;
+        font-family: 'Lato', sans-serif;
+      }
+
+      .ftco-section {
+        padding: 5em 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .heading-section {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #333;
+        text-shadow: 1px 1px 3px #fff;
+      }
+
+      .login-wrap {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border-radius: 25px;
+        padding: 35px 25px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        color: #fff;
+        text-align: center;
+        transition: all 0.3s ease-in-out;
+      }
+
+      .login-wrap h5 {
+        font-size: 20px;
+        margin-bottom: 25px;
+        font-weight: 400;
+      }
+
+      .social {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .btn-outline-light {
+        width: 85%;
+        padding: 14px 20px;
+        font-size: 17px;
+        font-weight: bold;
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        border: 2px solid #fff;
+        color: #fff;
+        background-color: transparent;
+      }
+
+      .btn-outline-light:hover {
+        background-color: #4badeb;
+        color: #fff;
+        border-color: #4badeb;
+        transform: scale(1.03);
+      }
+
+      @media (max-width: 768px) {
+        .heading-section {
+          font-size: 2.2rem;
+        }
+
+        .btn-outline-light {
+          width: 100%;
+        }
+
+        .login-wrap {
+          padding: 25px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="img js-fullheight" style="background-image: url({% static 'pay/images/white save.jpg' %});">
+    <section class="ftco-section">
+      <div class="container">
+        <form method="post">
+          {% csrf_token %}
+          <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+              <h1 class="heading-section" style="margin-top: 200px;">Proceed To Payment</h1>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+              <div class="login-wrap p-0">
+                {% if request.session.User_name %}
+                  <h5>{{ request.session.User_name }}</h5>
+                {% endif %}
+
+                <div class="social">
+                  <button type="submit" class="btn btn-outline-light">Make Payment</button>
+                  <a href="{% url 'index_page' %}" class="btn btn-outline-light">Back to Home</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="{% static 'pay/js/jquery.min.js' %}"></script>
+    <script src="{% static 'pay/js/popper.js' %}"></script>
+    <script src="{% static 'pay/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'pay/js/main.js' %}"></script>
+
+    <!-- Razorpay Checkout Script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"
+      data-key="rzp_test_mJFX2vCAoYiHq6"
+      data-amount="{{ payy_str }}"
+      data-currency="INR"
+      data-order_id="{{ payment.order_id }}"
+      data-name="FitFusion"
+      data-description="Secure Payment"
+      data-image=""
+      data-prefill.email="abc@gmail.com"
+      data-theme.color="#4badeb">
+    </script>
+
+    <script>
+      var options = {
+        "key": "rzp_test_mJFX2vCAoYiHq6",
+        "amount": "{{ payy_str }}",
+        "currency": "INR",
+        "order_id": "{{ payment.order_id }}",
+        "prefill": {
+          "email": "abc@gmail.com",
+          "contact": "+919999999999"
+        },
+        "theme": {
+          "color": "#4badeb"
+        },
+        "handler": function (response) {
+          alert("Payment Successful!");
+          window.location.href = "{% url 'index_page' %}";
+        },
+        "modal": {
+          "escape": false,
+          "backdropclose": false
+        }
+      };
+
+      // Uncomment below to auto-open Razorpay modal:
+      // var rzp1 = new Razorpay(options);
+      // rzp1.open();
+    </script>
+  </body>
+</html>
